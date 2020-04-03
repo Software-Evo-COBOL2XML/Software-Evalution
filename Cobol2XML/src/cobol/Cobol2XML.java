@@ -1,5 +1,6 @@
 /*
  * @(#)Cobol2XML.java	 0.1.0
+
  *
  * Copyright (c) 2019 Julian M. Bass
  *
@@ -22,7 +23,10 @@
 package cobol;
 
 import XMLWriter.*;
+
 import java.io.*;
+import java.util.Scanner;
+
 import parse.*;
 import parse.tokens.*;
 
@@ -64,6 +68,7 @@ public class Cobol2XML {
 		Tokenizer t = CobolParser.tokenizer();
 		Parser p = CobolParser.start();
 		
+		
 		// Look through source code file line by line
 		while (true) {
 			// throws IOException
@@ -71,6 +76,39 @@ public class Cobol2XML {
 			if (s == null) {
 				break;
 			}
+			            
+			
+			if(s.contains("remarks.") )  {
+				String line1 =r.readLine(); //first line is space
+				while(!line1.contains(".")  ) {
+				String line2 =r.readLine(); //second line actual remark starts
+				line1 +=  line2.trim() + "  ";       // to all the lines together
+				
+		    }
+			s=s+line1;	
+			
+			}
+			
+			if(s.contains("display") )  {
+			
+				
+				String line2="";
+			Scanner scanner = new Scanner(s); 
+			if(!s.isEmpty()) {
+			line2="";
+				String line3 = scanner.next();
+				if(scanner.hasNext()) {
+					line2 += scanner.next();
+				}
+				s= line3+line2;
+			}
+			
+			
+			}
+			
+			
+			
+			
 			t.setString(s);
 			Assembly in = new TokenAssembly(t);
 			Assembly out = p.bestMatch(in);
