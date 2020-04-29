@@ -94,7 +94,7 @@ public class XMLPayload {
 		
 		String hexName = c.getVariableName();
 		if (hexName != null) {
-			this.addHexDataElement( hexName, c.getVariableType(), c.getLineNumber() );
+			this.addHexDataElement( hexName, c.getVariableType(), c.getVariableRange(), c.getLineNumber() );
 		}
 		else {
 			//	System.out.println(baseToDecimal);
@@ -277,7 +277,7 @@ String subtraction = c.getSubtraction();
 
 	}
 	
-	void addHexDataElement(String variableName, String variableType, int lineNumber) {
+	void addHexDataElement(String variableName, String variableType, int variableRange, int lineNumber) {
 		if (variableName != null ) {
 			Element cobolname = doc.createElement("Variable");
 			Element varID = doc.createElement("Variable");
@@ -292,6 +292,12 @@ String subtraction = c.getSubtraction();
 			attrType1.setValue(variableType);
 			typeID.setAttributeNode(attrType1);
 			cobolname.appendChild(typeID);
+			
+			Element rangeID = doc.createElement(variableName); 
+			Attr attrType3 = doc.createAttribute("Range");
+			attrType3.setValue( Integer.toString(variableRange));
+			rangeID.setAttributeNode(attrType3);
+			cobolname.appendChild(rangeID);
 
 			
 			Element lineID = doc.createElement(variableName); 

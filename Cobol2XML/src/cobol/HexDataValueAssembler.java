@@ -12,10 +12,16 @@ public class HexDataValueAssembler extends Assembler {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop(); // hopefully the token following the comment
 		
-		c.setVariableType( t.sval().trim() + defaultDelimiter() + a.remainder(defaultDelimiter()));
+		t = (Token) a.pop();
+		c.setVariableRange( (int) Math.round(t.nval()));
+		c.getVariableRange();
+		
+		t = (Token) a.pop();
+		c.setVariableType( t.sval().trim() );
 		c.getVariableType();
 		System.out.println(c.getVariableType());
 		
+		t = (Token) a.pop();
 		
 		t = (Token) a.pop();
 		c.setVariableName( t.sval() );

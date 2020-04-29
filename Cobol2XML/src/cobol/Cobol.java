@@ -51,8 +51,15 @@ public class Cobol implements PubliclyCloneable {
     protected String variableName;
     protected String HexValueData;
     protected String variableType;
-    protected String pic;
+    protected int variableRange;
     
+    public int getVariableRange() {
+		return variableRange;
+	}
+
+	public void setVariableRange(int variableRange) {
+		this.variableRange = variableRange;
+	}
     
     public String getVariableName() {
 		return variableName;
@@ -78,14 +85,6 @@ public class Cobol implements PubliclyCloneable {
 
 	public void setVariableType(String variableType) {
 		this.variableType = variableType;
-	}
-
-	public String getPic() {
-		return pic;
-	}
-
-	public void setPic(String pic) {
-		this.pic = pic;
 	}
 
 	public String getBaseToDecimal() {
