@@ -40,8 +40,20 @@ public class Cobol implements PubliclyCloneable {
 	protected String mainLogic;
     protected int lineNumber = 0;
     protected String decimalToBase;
+    protected String baseToDecimal;
     protected String statement;
     protected String perform;
+    
+    public String getBaseToDecimal() {
+    	return baseToDecimal;
+    }
+    
+    public void setBaseToDecimal(String baseToDecimal) {
+    	System.out.println("setBaseToDecimal(): " + baseToDecimal);
+    	System.out.println("setBaseToDecimal(): " + getBaseToDecimal());
+    	this.baseToDecimal = baseToDecimal;
+    }
+    
     public String getIfStatement() {
 		return ifStatement;
 	}

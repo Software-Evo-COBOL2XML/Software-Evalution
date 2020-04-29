@@ -40,7 +40,7 @@
     </main-logic>
     <comment>convert from decimal to base system</comment>
     <decimal-to-base>
-        move entry_number to w_number move spaces to entry_char move 16.0 to ind
+        move
         <perform until="until w_number &lt; current_base">
             <divide>current_base into w_number giving w_number remainder rest_divide</divide>
             <search>all hex_table at end continue when dec_value ( hex_idx ) is = rest_divide move hex_value ( hex_idx ) to entry_char ( ind : 1.0 )</search>
@@ -48,5 +48,6 @@
         </perform>
         <if-statement>if w_number not = 0.0 search all hex_table at end continue when dec_value ( hex_idx ) is = w_number move hex_value ( hex_idx ) to entry_char ( ind : 1.0 ) end_search end-if .</if-statement>
     </decimal-to-base>
+    <base-to-decimal>base-to-decimal </base-to-decimal>
     <comment>allineamento a destra della variabile entry_char ( ver 2.3 0.1 o sup )</comment>
 </cobol>

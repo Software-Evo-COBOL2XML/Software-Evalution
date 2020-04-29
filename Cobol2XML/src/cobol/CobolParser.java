@@ -68,8 +68,18 @@ public class CobolParser {
 	    a.add(DecimalToBaseDivide());
 	    a.add(DecimalToBaseSubtract());
 	    a.add(DecimalToBaseIfStatement() );
+	    a.add(BaseToDecimal() );
 		a.add(new Empty());
 		return a;
+	}
+	
+	protected Parser BaseToDecimal() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("base-to-decimal"));
+		s.add(new Symbol('.').discard());
+//		s.add(new Word() );
+		s.setAssembler(new BaseToDecimalAssembler());
+		return s;
 	}
 	
 	/*              

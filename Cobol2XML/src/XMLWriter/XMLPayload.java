@@ -84,6 +84,13 @@ public class XMLPayload {
 			//System.out.println("Section Name null");
 		}
 		
+		String baseToDecimal = c.getBaseToDecimal();
+		if (baseToDecimal != null) {
+			this.addBaseToDecimalElement( baseToDecimal );
+		}
+		else {
+			//	System.out.println(baseToDecimal);
+		}
 	
 		
 		String statement = c.getStatement(); 
@@ -262,7 +269,14 @@ String subtraction = c.getSubtraction();
 
 	}
 	
-	
+	void addBaseToDecimalElement(String stringElement) {
+		if (stringElement != null ) {
+			Element cobolname = doc.createElement("base-to-decimal");
+			cobolname.appendChild(doc.createTextNode(stringElement));
+			rootElement.appendChild(cobolname);
+		}
+	}
+
 	
 
  	void addProgram_IDElement(String stringElement) {

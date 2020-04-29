@@ -20,7 +20,7 @@ public class DecimalToBaseAssembler extends Assembler {
 		Token t = (Token) a.pop(); // hopefully the token following the comment
 		
 		if(t.sval() != null) {
-			c.setDecimalToBase(t.sval().trim()+ defaultDelimiter() + a.remainder(defaultDelimiter()));
+			c.setDecimalToBase(t.sval().trim());
 			a.setTarget(c); }
 		}
 
