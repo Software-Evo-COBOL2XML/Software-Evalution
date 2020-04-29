@@ -26,6 +26,10 @@ import java.util.ArrayList;
 
 import utensil.*;
 
+/**
+ * @author stephenmccallion
+ *
+ */
 public class Cobol implements PubliclyCloneable {
 	protected String commentLine;
 	protected String program_id;
@@ -44,13 +48,53 @@ public class Cobol implements PubliclyCloneable {
     protected String statement;
     protected String perform;
     
-    public String getBaseToDecimal() {
+    protected String variableName;
+    protected String HexValueData;
+    protected String variableType;
+    protected String pic;
+    
+    
+    public String getVariableName() {
+		return variableName;
+	}
+
+	public void setVariableName(String variableName) {
+		this.variableName = variableName;
+	}
+
+
+	public String getHexValueData() {
+		return HexValueData;
+	}
+
+	public void setHexValueData(String hexValueData) {
+//		System.out.println(getHexValueData());
+		HexValueData = hexValueData;
+	}
+
+	public String getVariableType() {
+		return variableType;
+	}
+
+	public void setVariableType(String variableType) {
+		this.variableType = variableType;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	public String getBaseToDecimal() {
     	return baseToDecimal;
     }
     
     public void setBaseToDecimal(String baseToDecimal) {
-    	System.out.println("setBaseToDecimal(): " + baseToDecimal);
-    	System.out.println("setBaseToDecimal(): " + getBaseToDecimal());
+//    	System.out.println("setBaseToDecimal(): " + baseToDecimal);
+//    	System.out.println("setBaseToDecimal(): " + getBaseToDecimal());
     	this.baseToDecimal = baseToDecimal;
     }
     

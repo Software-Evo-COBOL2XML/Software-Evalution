@@ -30,6 +30,7 @@ import parse.Sequence;
 import parse.tokens.CaselessLiteral;
 import parse.tokens.Literal;
 import parse.tokens.Num;
+import parse.tokens.QuotedString;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
 import parse.tokens.Word;
@@ -53,6 +54,13 @@ public class CobolParser {
 	
 		Symbol fullstop = new Symbol('.');
 		fullstop.discard();
+		Symbol quotation = new Symbol('"');
+		quotation.discard();
+		Symbol oBracket = new Symbol('(');
+		oBracket.discard();
+		Symbol cBracket = new Symbol(')');
+		cBracket.discard();
+		
 		a.add( ProgramID() );
 		a.add( DivisionName() );
 		a.add(  MainLogicSection());
@@ -69,6 +77,8 @@ public class CobolParser {
 	    a.add(DecimalToBaseSubtract());
 	    a.add(DecimalToBaseIfStatement() );
 	    a.add(BaseToDecimal() );
+	    a.add(HexDataValue() );
+	    
 		a.add(new Empty());
 		return a;
 	}
@@ -79,6 +89,16 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 //		s.add(new Word() );
 		s.setAssembler(new BaseToDecimalAssembler());
+		return s;
+	}
+	
+	protected Parser HexDataValue() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word());
+		s.setAssembler(new HexDataValueAssembler());
 		return s;
 	}
 	

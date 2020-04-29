@@ -27,6 +27,16 @@
         <base_16 Line_Number="88"/>
         <base_16 Value="16.0"/>
     </Constant>
+    <variable>
+        <variable Name="1"/>
+        <hex_dec_data Type="x ( 48.0 ) value"/>
+        <hex_dec_data Line_Number=""/>
+    </variable>
+    <variable>
+        <variable Name="5"/>
+        <hex_value Type="x ."/>
+        <hex_value Line_Number=""/>
+    </variable>
     <division>procedure</division>
     <main-logic>
         <statement>display "Base:  " no</statement>

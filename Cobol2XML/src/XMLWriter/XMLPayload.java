@@ -91,7 +91,15 @@ public class XMLPayload {
 		else {
 			//	System.out.println(baseToDecimal);
 		}
-	
+		
+		String hexName = c.getVariableName();
+		if (hexName != null) {
+			this.addHexDataElement( hexName, c.getVariableType(), c.getLineNumber() );
+		}
+		else {
+			//	System.out.println(baseToDecimal);
+		}
+		
 		
 		String statement = c.getStatement(); 
 		
@@ -267,6 +275,32 @@ String subtraction = c.getSubtraction();
 			this.addYearDateWrittenElement( yearDateWritten );
 		}
 
+	}
+	
+	void addHexDataElement(String variableName, String variableType, int lineNumber) {
+		if (variableName != null ) {
+			Element cobolname = doc.createElement("variable");
+			Element varID = doc.createElement("variable");
+			Attr attrType = doc.createAttribute("Name");
+			attrType.setValue(variableName);
+			varID.setAttributeNode(attrType);
+			cobolname.appendChild(varID);
+			rootElement.appendChild(cobolname);
+			
+			Element typeID = doc.createElement(variableName); 
+			Attr attrType1 = doc.createAttribute("Type");
+			attrType1.setValue(variableType);
+			typeID.setAttributeNode(attrType1);
+			cobolname.appendChild(typeID);
+
+			
+			Element lineID = doc.createElement(variableName); 
+			Attr attrType2 = doc.createAttribute("Line_Number" ); 
+			attrType.setValue( Integer.toString(lineNumber) ); 
+			lineID.setAttributeNode(attrType2); 
+			cobolname.appendChild(lineID);
+			rootElement.appendChild(cobolname);
+		}
 	}
 	
 	void addBaseToDecimalElement(String stringElement) {
