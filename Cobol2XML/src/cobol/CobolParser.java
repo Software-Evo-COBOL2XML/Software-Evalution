@@ -97,7 +97,6 @@ public class CobolParser {
 		s.add(new Num());
 		s.add(new Word());
 		s.add(new CaselessLiteral("pic"));
-		s.add(new Word());
 		s.setAssembler(new HexDataValueAssembler());
 		return s;
 	}

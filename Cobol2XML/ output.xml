@@ -7,6 +7,31 @@
     <remarks>This program convert a value of a generic system base to a numeric value and viceversa .</remarks>
     <division>data</division>
     <section>working-storage</section>
+    <Variable>
+        <Variable Name="ind"/>
+        <ind Type="pic 99.0 comp-x ."/>
+        <ind Line_Number="77"/>
+    </Variable>
+    <Variable>
+        <Variable Name="rest_divide"/>
+        <rest_divide Type="pic 99.0"/>
+        <rest_divide Line_Number="77"/>
+    </Variable>
+    <Variable>
+        <Variable Name="w_number"/>
+        <w_number Type="pic 9.0 ( 16.0 ) ."/>
+        <w_number Line_Number="1"/>
+    </Variable>
+    <Variable>
+        <Variable Name="entry_number"/>
+        <entry_number Type="pic 9.0 ( 16.0 ) ."/>
+        <entry_number Line_Number="1"/>
+    </Variable>
+    <Variable>
+        <Variable Name="current_base"/>
+        <current_base Type="pic 9.0 ( 2.0 ) ."/>
+        <current_base Line_Number="1"/>
+    </Variable>
     <Constant>
         <Constant Name="base_2"/>
         <base_2 Line_Number="88"/>
@@ -27,16 +52,21 @@
         <base_16 Line_Number="88"/>
         <base_16 Value="16.0"/>
     </Constant>
-    <variable>
-        <variable Name="1"/>
-        <hex_dec_data Type="x ( 48.0 ) value"/>
-        <hex_dec_data Line_Number=""/>
-    </variable>
-    <variable>
-        <variable Name="5"/>
-        <hex_value Type="x ."/>
-        <hex_value Line_Number=""/>
-    </variable>
+    <Variable>
+        <Variable Name="hex_dec_data"/>
+        <hex_dec_data Type="pic x ( 48.0 ) value"/>
+        <hex_dec_data Line_Number="1"/>
+    </Variable>
+    <Variable>
+        <Variable Name="hex_value"/>
+        <hex_value Type="pic x ."/>
+        <hex_value Line_Number="5"/>
+    </Variable>
+    <Variable>
+        <Variable Name="dec_value"/>
+        <dec_value Type="pic 99.0"/>
+        <dec_value Line_Number="5"/>
+    </Variable>
     <division>procedure</division>
     <main-logic>
         <statement>display "Base:  " no</statement>

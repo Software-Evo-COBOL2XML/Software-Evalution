@@ -16,7 +16,6 @@ public class HexDataValueAssembler extends Assembler {
 		c.getVariableType();
 		System.out.println(c.getVariableType());
 		
-		t = (Token) a.pop();
 		
 		t = (Token) a.pop();
 		c.setVariableName( t.sval() );

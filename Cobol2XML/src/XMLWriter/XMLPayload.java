@@ -279,8 +279,8 @@ String subtraction = c.getSubtraction();
 	
 	void addHexDataElement(String variableName, String variableType, int lineNumber) {
 		if (variableName != null ) {
-			Element cobolname = doc.createElement("variable");
-			Element varID = doc.createElement("variable");
+			Element cobolname = doc.createElement("Variable");
+			Element varID = doc.createElement("Variable");
 			Attr attrType = doc.createAttribute("Name");
 			attrType.setValue(variableName);
 			varID.setAttributeNode(attrType);
@@ -296,7 +296,7 @@ String subtraction = c.getSubtraction();
 			
 			Element lineID = doc.createElement(variableName); 
 			Attr attrType2 = doc.createAttribute("Line_Number" ); 
-			attrType.setValue( Integer.toString(lineNumber) ); 
+			attrType2.setValue( Integer.toString(lineNumber) ); 
 			lineID.setAttributeNode(attrType2); 
 			cobolname.appendChild(lineID);
 			rootElement.appendChild(cobolname);
