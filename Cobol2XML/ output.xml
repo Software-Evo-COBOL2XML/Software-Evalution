@@ -7,6 +7,24 @@
     <remarks>This program convert a value of a generic system base to a numeric value and viceversa .</remarks>
     <division>data</division>
     <section>working-storage</section>
+    <Variable>
+        <Variable Name="w_number"/>
+        <w_number Type="9"/>
+        <w_number Size="16"/>
+        <w_number Line_Number="1"/>
+    </Variable>
+    <Variable>
+        <Variable Name="entry_number"/>
+        <entry_number Type="9"/>
+        <entry_number Size="16"/>
+        <entry_number Line_Number="1"/>
+    </Variable>
+    <Variable>
+        <Variable Name="current_base"/>
+        <current_base Type="9"/>
+        <current_base Size="2"/>
+        <current_base Line_Number="1"/>
+    </Variable>
     <Constant>
         <Constant Name="base_2"/>
         <base_2 Line_Number="88"/>
@@ -30,7 +48,7 @@
     <Variable>
         <Variable Name="hex_dec_data"/>
         <hex_dec_data Type="x"/>
-        <hex_dec_data Range="48"/>
+        <hex_dec_data Size="48"/>
         <hex_dec_data Line_Number="1"/>
     </Variable>
     <division>procedure</division>

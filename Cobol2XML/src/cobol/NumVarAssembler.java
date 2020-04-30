@@ -4,7 +4,7 @@ import parse.Assembler;
 import parse.Assembly;
 import parse.tokens.Token;
 
-public class HexDataValueAssembler extends Assembler {
+public class NumVarAssembler extends Assembler {
 
 	@Override
 	public void workOn(Assembly a) {
@@ -12,35 +12,27 @@ public class HexDataValueAssembler extends Assembler {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop(); // hopefully the token following the comment
 		
-		
-		t = (Token) a.pop();
 		c.setVariableRange( (int) Math.round(t.nval()));
 		c.getVariableRange();
 		System.out.println(t);
 		
 		t = (Token) a.pop();
-		c.setVariableType( t.sval().trim() );
-		c.getVariableType();
-		System.out.println(c.getVariableType());
+		c.setNumVar( (int) Math.round(t.nval()));
+		c.getNumVar();
+		System.out.println(c.getNumVar());
 		
 		t = (Token) a.pop();
 		
 		t = (Token) a.pop();
-		c.setVariableName( t.sval() );
-		c.getVariableName();
-		System.out.println(c.getVariableName());
+		c.setNumVarName( t.sval() );
+		c.getNumVarName();
+		System.out.println(c.getNumVarName());
 		
 		t = (Token) a.pop();
 		c.setLineNumber( (int) Math.round(t.nval()));
 		c.getLineNumber();
 		System.out.println(c.getLineNumber());
 		a.setTarget(c);
-	}
-	
-	public String defaultDelimiter() {
-		String delimiter = " ";
-		return delimiter; 
-		
 	}
 
 }

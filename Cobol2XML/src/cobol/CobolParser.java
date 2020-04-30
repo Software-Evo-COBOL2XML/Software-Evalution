@@ -77,7 +77,9 @@ public class CobolParser {
 	    a.add(DecimalToBaseSubtract());
 	    a.add(DecimalToBaseIfStatement() );
 	    a.add(BaseToDecimal() );
+	    
 	    a.add(HexDataValue() );
+	    a.add(NumVar());
 	    
 		a.add(new Empty());
 		return a;
@@ -89,6 +91,19 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 //		s.add(new Word() );
 		s.setAssembler(new BaseToDecimalAssembler());
+		return s;
+	}
+	
+	protected Parser NumVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+		s.setAssembler(new NumVarAssembler());
 		return s;
 	}
 	

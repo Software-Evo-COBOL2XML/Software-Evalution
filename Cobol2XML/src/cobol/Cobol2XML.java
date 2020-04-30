@@ -106,7 +106,13 @@ public class Cobol2XML {
 			s="main-logic."+line1;	 
 			}
 			
-			
+			if(s.contains("hex_dec_data                        pic x(48) value")) {
+//				System.out.println(s);
+				line1 = r.readLine();
+//				System.out.println(line1);
+				s = s+line1;
+//				System.out.println(s);
+			}
 					
 
 			

@@ -92,6 +92,14 @@ public class XMLPayload {
 			//	System.out.println(baseToDecimal);
 		}
 		
+		String numVar = c.getNumVarName();
+		if (numVar != null) {
+			this.addNumVarElement( numVar, c.getNumVar(), c.getVariableRange(), c.getLineNumber() );
+		}
+		else {
+			//	System.out.println(baseToDecimal);
+		}
+		
 		String hexName = c.getVariableName();
 		if (hexName != null) {
 			this.addHexDataElement( hexName, c.getVariableType(), c.getVariableRange(), c.getLineNumber() );
@@ -277,6 +285,36 @@ String subtraction = c.getSubtraction();
 
 	}
 	
+	void addNumVarElement(String variableName, int variableType, int variableRange, int lineNumber) {
+		Element cobolname = doc.createElement("Variable");
+		Element varID = doc.createElement("Variable");
+		Attr attrType = doc.createAttribute("Name");
+		attrType.setValue(variableName);
+		varID.setAttributeNode(attrType);
+		cobolname.appendChild(varID);
+		rootElement.appendChild(cobolname);
+		
+		Element typeID = doc.createElement(variableName); 
+		Attr attrType1 = doc.createAttribute("Type");
+		attrType1.setValue( Integer.toString(variableType));
+		typeID.setAttributeNode(attrType1);
+		cobolname.appendChild(typeID);
+		
+		Element rangeID = doc.createElement(variableName); 
+		Attr attrType3 = doc.createAttribute("Size");
+		attrType3.setValue( Integer.toString(variableRange));
+		rangeID.setAttributeNode(attrType3);
+		cobolname.appendChild(rangeID);
+
+		
+		Element lineID = doc.createElement(variableName); 
+		Attr attrType2 = doc.createAttribute("Line_Number" ); 
+		attrType2.setValue( Integer.toString(lineNumber) ); 
+		lineID.setAttributeNode(attrType2); 
+		cobolname.appendChild(lineID);
+		rootElement.appendChild(cobolname);
+	}
+	
 	void addHexDataElement(String variableName, String variableType, int variableRange, int lineNumber) {
 		if (variableName != null ) {
 			Element cobolname = doc.createElement("Variable");
@@ -294,7 +332,7 @@ String subtraction = c.getSubtraction();
 			cobolname.appendChild(typeID);
 			
 			Element rangeID = doc.createElement(variableName); 
-			Attr attrType3 = doc.createAttribute("Range");
+			Attr attrType3 = doc.createAttribute("Size");
 			attrType3.setValue( Integer.toString(variableRange));
 			rangeID.setAttributeNode(attrType3);
 			cobolname.appendChild(rangeID);

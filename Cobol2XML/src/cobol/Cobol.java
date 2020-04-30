@@ -52,8 +52,30 @@ public class Cobol implements PubliclyCloneable {
     protected String HexValueData;
     protected String variableType;
     protected int variableRange;
+    protected int numVar;
+    protected String numVarName;
     
-    public int getVariableRange() {
+    
+    
+    
+    
+    public String getNumVarName() {
+		return numVarName;
+	}
+
+	public void setNumVarName(String numVarName) {
+		this.numVarName = numVarName;
+	}
+
+	public int getNumVar() {
+		return numVar;
+	}
+
+	public void setNumVar(int numVar) {
+		this.numVar = numVar;
+	}
+
+	public int getVariableRange() {
 		return variableRange;
 	}
 
