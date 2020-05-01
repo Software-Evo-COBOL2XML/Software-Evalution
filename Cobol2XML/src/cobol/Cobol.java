@@ -54,12 +54,38 @@ public class Cobol implements PubliclyCloneable {
     protected int variableRange;
     protected int numVar;
     protected String numVarName;
+    protected boolean redefine;
+    protected String redefinedVariableName;
+    protected String entry_char;
     
     
     
     
-    
-    public String getNumVarName() {
+    public String getEntry_char() {
+		return entry_char;
+	}
+
+	public void setEntry_char(String entry_char) {
+		this.entry_char = entry_char;
+	}
+
+	public boolean isRedefine() {
+		return redefine;
+	}
+
+	public void setRedefine(boolean redefine) {
+		this.redefine = redefine;
+	}
+
+	public String getRedefinedVariableName() {
+		return redefinedVariableName;
+	}
+
+	public void setRedefinedVariableName(String redefinedVariableName) {
+		this.redefinedVariableName = redefinedVariableName;
+	}
+
+	public String getNumVarName() {
 		return numVarName;
 	}
 

@@ -4,7 +4,7 @@ import parse.Assembler;
 import parse.Assembly;
 import parse.tokens.Token;
 
-public class NumVarAssembler extends Assembler {
+public class CompVarAssembler extends Assembler {
 
 	@Override
 	public void workOn(Assembly a) {
@@ -12,21 +12,24 @@ public class NumVarAssembler extends Assembler {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop();
 
-		c.setNumVar( (int) Math.round(t.nval()));
+		c.setVariableType(t.sval());
+//		System.out.println(c.getVariableType());
+		
+		t = (Token) a.pop();
+		c.setNumVar((int) Math.round(t.nval()));
 		c.getNumVar();
 //		System.out.println(c.getNumVar());
 		
 		t = (Token) a.pop();
 		
 		t = (Token) a.pop();
-		c.setNumVarName( t.sval() );
-		c.getNumVarName();
-//		System.out.println(c.getNumVarName());
+		c.setVariableName(t.sval());
+//		System.out.println(c.getVariableName());
 		
 		t = (Token) a.pop();
-		c.setLineNumber( (int) Math.round(t.nval()));
-		c.getLineNumber();
-//		System.out.println("tttttt" + c.getLineNumber());
+		c.setLineNumber((int) Math.round(t.nval()));
+//		System.out.println(c.getLineNumber());
+		
 		a.setTarget(c);
 	}
 

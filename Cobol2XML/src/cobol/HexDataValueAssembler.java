@@ -16,24 +16,24 @@ public class HexDataValueAssembler extends Assembler {
 		t = (Token) a.pop();
 		c.setVariableRange( (int) Math.round(t.nval()));
 		c.getVariableRange();
-		System.out.println(t);
+//		System.out.println(t);
 		
 		t = (Token) a.pop();
 		c.setVariableType( t.sval().trim() );
 		c.getVariableType();
-		System.out.println(c.getVariableType());
+//		System.out.println(c.getVariableType());
 		
 		t = (Token) a.pop();
 		
 		t = (Token) a.pop();
 		c.setVariableName( t.sval() );
 		c.getVariableName();
-		System.out.println(c.getVariableName());
+//		System.out.println(c.getVariableName());
 		
 		t = (Token) a.pop();
 		c.setLineNumber( (int) Math.round(t.nval()));
 		c.getLineNumber();
-		System.out.println(c.getLineNumber());
+//		System.out.println(c.getLineNumber());
 		a.setTarget(c);
 	}
 	

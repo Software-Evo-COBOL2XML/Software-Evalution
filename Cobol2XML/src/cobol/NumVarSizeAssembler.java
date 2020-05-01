@@ -4,14 +4,19 @@ import parse.Assembler;
 import parse.Assembly;
 import parse.tokens.Token;
 
-public class NumVarAssembler extends Assembler {
+public class NumVarSizeAssembler extends Assembler {
 
 	@Override
 	public void workOn(Assembly a) {
 		// TODO Auto-generated method stub
 		Cobol c = new Cobol();
-		Token t = (Token) a.pop();
-
+		Token t = (Token) a.pop(); // hopefully the token following the comment
+		
+		c.setVariableRange( (int) Math.round(t.nval()));
+		c.getVariableRange();
+//		System.out.println(t);
+		
+		t = (Token) a.pop();
 		c.setNumVar( (int) Math.round(t.nval()));
 		c.getNumVar();
 //		System.out.println(c.getNumVar());
@@ -26,7 +31,7 @@ public class NumVarAssembler extends Assembler {
 		t = (Token) a.pop();
 		c.setLineNumber( (int) Math.round(t.nval()));
 		c.getLineNumber();
-//		System.out.println("tttttt" + c.getLineNumber());
+//		System.out.println(c.getLineNumber());
 		a.setTarget(c);
 	}
 

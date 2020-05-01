@@ -48,7 +48,6 @@ public class CobolParser {
 	 */
 	public Parser cobol() {
 		Alternation a = new Alternation();
-		 a.add( constantValue() );
 		 a.add( commentLine() );
 		
 	
@@ -63,13 +62,15 @@ public class CobolParser {
 		
 		a.add( ProgramID() );
 		a.add( DivisionName() );
-		a.add(  MainLogicSection());
 	    a.add(Remarks());
+	    
+		a.add(  MainLogicSection());
 	    a.add(StatementSection());
 	    a.add(StatementSection2());
 	    a.add(StatementSection3());
 		a.add( SectionName() );
 	    a.add( DateWritten() );
+	    
 	    a.add(DecimalToBase());
 	    a.add( DecimalToBaseSearch());
 	    a.add(DecimalToBasePerform());
@@ -78,23 +79,36 @@ public class CobolParser {
 	    a.add(DecimalToBaseIfStatement() );
 	    a.add(BaseToDecimal() );
 	    
+	    //Working Storage
 	    a.add(HexDataValue() );
+	    a.add(NumVarSize());
+	    a.add(compVar());
 	    a.add(NumVar());
+	    a.add( constantValue() );
+	    a.add(RedefineVar());
 	    
 		a.add(new Empty());
 		return a;
 	}
 	
-	protected Parser BaseToDecimal() {
+	/*
+	 * Working Storage Parsers
+	 */
+	// Returns a parser that recognises a var of type comp-x
+	protected Parser compVar() {
 		Sequence s = new Sequence();
-		s.add(new CaselessLiteral("base-to-decimal"));
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+		s.add(new CaselessLiteral("comp-x"));
 		s.add(new Symbol('.').discard());
-//		s.add(new Word() );
-		s.setAssembler(new BaseToDecimalAssembler());
+		s.setAssembler(new CompVarAssembler());
 		return s;
 	}
 	
-	protected Parser NumVar() {
+	// Returns a parser that recognises a num var and size
+	protected Parser NumVarSize() {
 		Sequence s = new Sequence();
 		s.add(new Num());
 		s.add(new Word());
@@ -103,10 +117,39 @@ public class CobolParser {
 		s.add(new Symbol('(').discard());
 		s.add(new Num());
 		s.add(new Symbol(')').discard());
+		s.setAssembler(new NumVarSizeAssembler());
+		return s;
+	}
+	
+	// Returns a parser that recognises a num var
+	protected Parser NumVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new CaselessLiteral("rest_divide"));
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+//		s.add(new Symbol('.').discard());
 		s.setAssembler(new NumVarAssembler());
 		return s;
 	}
 	
+	protected Parser RedefineVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("redefines"));
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word());
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new RedefineVarAssembler());
+		return s;
+	}
+	
+	// Returns a parser that recognises the hex data var
 	protected Parser HexDataValue() {
 		Sequence s = new Sequence();
 		s.add(new Num());
@@ -121,6 +164,15 @@ public class CobolParser {
 		return s;
 	}
 	
+	
+	protected Parser BaseToDecimal() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("base-to-decimal"));
+		s.add(new Symbol('.').discard());
+//		s.add(new Word() );
+		s.setAssembler(new BaseToDecimalAssembler());
+		return s;
+	}
 	/*              
 	 * Return a parser that will recognize the grammar:
 	 * 
