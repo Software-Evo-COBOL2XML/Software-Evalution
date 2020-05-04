@@ -86,6 +86,7 @@ public class CobolParser {
 	    a.add(NumVar());
 	    a.add( constantValue() );
 	    a.add(RedefineVar());
+	    a.add(HexDecTable());
 	    
 		a.add(new Empty());
 		return a;
@@ -161,6 +162,44 @@ public class CobolParser {
 		s.add(new Symbol(')').discard());
 		s.add(new CaselessLiteral("value"));
 		s.setAssembler(new HexDataValueAssembler());
+		return s;
+	}
+	
+	protected Parser HexDecTable() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("hex_decimal_table"));
+		s.add(new CaselessLiteral("redefines"));
+		s.add(new Word() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexDecTableAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("occurs"));
+//		s.add(new Num());
+//		s.add(new Word() );
+//		s.add(new CaselessLiteral("accending"));
+//		s.add(new Word() );
+//		s.add(new Symbol(',').discard());
+//		s.add(new Word() );
+//		s.add(new CaselessLiteral("indexed"));
+//		s.add(new Word() );
+//		s.add(new Word() );
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexTableAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexValueAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new DecValueAssembler());
 		return s;
 	}
 	

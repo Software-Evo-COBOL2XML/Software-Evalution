@@ -113,6 +113,23 @@ public class Cobol2XML {
 				s = s+line1;
 //				System.out.println(s);
 			}
+			
+			if(  s.contains("hex_decimal_table redefines hex_dec_data")   ) {
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      s=s+line2;
+			      System.out.println(s);
+			}
 					
 
 			

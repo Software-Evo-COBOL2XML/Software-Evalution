@@ -57,11 +57,20 @@ public class Cobol implements PubliclyCloneable {
     protected boolean redefine;
     protected String redefinedVariableName;
     protected String entry_char;
+    protected String hexDecTable;
     
     
     
     
-    public String getEntry_char() {
+    public String getHexDecTable() {
+		return hexDecTable;
+	}
+
+	public void setHexDecTable(String hexDecTable) {
+		this.hexDecTable = hexDecTable;
+	}
+
+	public String getEntry_char() {
 		return entry_char;
 	}
 
