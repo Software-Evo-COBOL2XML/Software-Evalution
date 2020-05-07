@@ -27,8 +27,8 @@ public class VariableTypeTest {
 		/*
 		 * Bad data to see if test fails
 		 */
-		assertEquals(c.getNumVar(), "x");
-		fail("This is not a number variable");
+//		assertEquals(c.getNumVar(), "x");
+//		fail("This is not a number variable");
 
 		/*
 		 * 	Expected data that should pass the test
