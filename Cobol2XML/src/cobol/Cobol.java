@@ -26,6 +26,10 @@ import java.util.ArrayList;
 
 import utensil.*;
 
+/**
+ * @author stephenmccallion
+ *
+ */
 public class Cobol implements PubliclyCloneable {
 	protected String commentLine;
 	protected String program_id;
@@ -40,8 +44,116 @@ public class Cobol implements PubliclyCloneable {
 	protected String mainLogic;
     protected int lineNumber = 0;
     protected String decimalToBase;
+    protected String baseToDecimal;
     protected String statement;
     protected String perform;
+    
+    protected String variableName;
+    protected String HexValueData;
+    protected String variableType;
+    protected int variableRange;
+    protected int numVar;
+    protected String numVarName;
+    protected boolean redefine;
+    protected String redefinedVariableName;
+    protected String entry_char;
+    protected String hexDecTable;
+    
+    
+    
+    
+    public String getHexDecTable() {
+		return hexDecTable;
+	}
+
+	public void setHexDecTable(String hexDecTable) {
+		this.hexDecTable = hexDecTable;
+	}
+
+	public String getEntry_char() {
+		return entry_char;
+	}
+
+	public void setEntry_char(String entry_char) {
+		this.entry_char = entry_char;
+	}
+
+	public boolean isRedefine() {
+		return redefine;
+	}
+
+	public void setRedefine(boolean redefine) {
+		this.redefine = redefine;
+	}
+
+	public String getRedefinedVariableName() {
+		return redefinedVariableName;
+	}
+
+	public void setRedefinedVariableName(String redefinedVariableName) {
+		this.redefinedVariableName = redefinedVariableName;
+	}
+
+	public String getNumVarName() {
+		return numVarName;
+	}
+
+	public void setNumVarName(String numVarName) {
+		this.numVarName = numVarName;
+	}
+
+	public int getNumVar() {
+		return numVar;
+	}
+
+	public void setNumVar(int numVar) {
+		this.numVar = numVar;
+	}
+
+	public int getVariableRange() {
+		return variableRange;
+	}
+
+	public void setVariableRange(int variableRange) {
+		this.variableRange = variableRange;
+	}
+    
+    public String getVariableName() {
+		return variableName;
+	}
+
+	public void setVariableName(String variableName) {
+		this.variableName = variableName;
+	}
+
+
+	public String getHexValueData() {
+		return HexValueData;
+	}
+
+	public void setHexValueData(String hexValueData) {
+//		System.out.println(getHexValueData());
+		HexValueData = hexValueData;
+	}
+
+	public String getVariableType() {
+		return variableType;
+	}
+
+	public void setVariableType(String variableType) {
+		this.variableType = variableType;
+	}
+
+	public String getBaseToDecimal() {
+    	return baseToDecimal;
+    }
+    
+    public void setBaseToDecimal(String baseToDecimal) {
+//    	System.out.println("setBaseToDecimal(): " + baseToDecimal);
+//    	System.out.println("setBaseToDecimal(): " + getBaseToDecimal());
+    	this.baseToDecimal = baseToDecimal;
+    }
+    
     public String getIfStatement() {
 		return ifStatement;
 	}

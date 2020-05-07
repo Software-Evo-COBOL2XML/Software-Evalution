@@ -66,7 +66,7 @@ public class Cobol2XML {
 		 * A rather crude approach is to hard code the filename for the cobol source file, like this
 		 * InputStream is = new FileInputStream("C:\\Users\\sgs442\\eclipse-workspace\\CobolParser1\\base.cbl");
 		 */
-		InputStream is = new FileInputStream("/Users/ececaliskan/git/Software-Evalutionfinal/Cobol2XML/cobol.cbl");
+		InputStream is = new FileInputStream("/Users/stephenmccallion/git/Software-Evalution/Cobol2XML/cobol.cbl");
 		BufferedReader r = 	new BufferedReader(new InputStreamReader(is));
 
 		Tokenizer t = CobolParser.tokenizer();
@@ -106,7 +106,30 @@ public class Cobol2XML {
 			s="main-logic."+line1;	 
 			}
 			
+			if(s.contains("hex_dec_data                        pic x(48) value")) {
+//				System.out.println(s);
+				line1 = r.readLine();
+//				System.out.println(line1);
+				s = s+line1;
+//				System.out.println(s);
+			}
 			
+			if(  s.contains("hex_decimal_table redefines hex_dec_data")   ) {
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      line1 =r.readLine(); //first line is space
+			      line2 += line1;
+			      s=s+line2;
+			      System.out.println(s);
+			}
 					
 
 			
@@ -120,6 +143,7 @@ public class Cobol2XML {
 			      line2 += line1;
 			      s=s+line2;	
 			}
+			
 			
 			if(  s.contains("divide")   ) {
 				   line1 =r.readLine(); //first line is space
@@ -172,7 +196,7 @@ public class Cobol2XML {
 				xmlp.addElements(c); 
 			
 		}
-		xmlp.writeFile("/Users/ececaliskan/git/Software-Evalutionfinal/Cobol2XML/ output.xml");
+		xmlp.writeFile("/Users/stephenmccallion/git/Software-Evalution/Cobol2XML/ output.xml");
 		r.close();
 		Cobol c2 =new Cobol();
 		String s1= c2.getCommentLine();

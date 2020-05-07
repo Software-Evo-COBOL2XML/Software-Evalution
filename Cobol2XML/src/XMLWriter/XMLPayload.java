@@ -84,7 +84,37 @@ public class XMLPayload {
 			//System.out.println("Section Name null");
 		}
 		
+		String baseToDecimal = c.getBaseToDecimal();
+		if (baseToDecimal != null) {
+			this.addBaseToDecimalElement( baseToDecimal );
+		}
+		else {
+			//	System.out.println(baseToDecimal);
+		}
+		
+		String varName = c.getNumVarName();
+		int varSize = c.getVariableRange();
+		if (varName != null) {
+			if (varSize != 0 || varSize > 0) {
+				this.addNumVarRangeElement( varName, c.getNumVar(), varSize, c.getLineNumber() );
+			}
+			else {
+				this.addNumVarElement( varName, c.getNumVar(), c.getLineNumber() );
+			}
+		}
 	
+		String hexName = c.getVariableName();
+		if (hexName != null) {
+			this.addHexDataElement( hexName, c.getVariableType(), c.getVariableRange(), c.getLineNumber() );
+		}
+		else {
+			//	System.out.println(baseToDecimal);
+		}
+
+		String redefines = c.getEntry_char();
+		if (redefines != null) {
+			this.redefineVarElement(redefines, c.getRedefinedVariableName(), c.getVariableType(), c.getVariableRange(), c.getLineNumber());
+		}
 		
 		String statement = c.getStatement(); 
 		
@@ -262,7 +292,136 @@ String subtraction = c.getSubtraction();
 
 	}
 	
+	void redefineVarElement(String variableName, String redefinedVariableName, String variableType, int variableRange, int lineNumber) {
+		Element cobolname = doc.createElement("Variable");
+		Element varID = doc.createElement("Variable");
+		Attr attrType = doc.createAttribute("Name");
+		attrType.setValue(variableName);
+		varID.setAttributeNode(attrType);
+		cobolname.appendChild(varID);
+		rootElement.appendChild(cobolname);
+			
+		Element redefinedID = doc.createElement(variableName);
+		Attr attrType4 = doc.createAttribute("Redefines");
+		attrType4.setValue(redefinedVariableName);
+		redefinedID.setAttributeNode(attrType4);
+		cobolname.appendChild(redefinedID);
+			
+		Element typeID = doc.createElement(variableName); 
+		Attr attrType1 = doc.createAttribute("Type");
+		attrType1.setValue(variableType);
+		typeID.setAttributeNode(attrType1);
+		cobolname.appendChild(typeID);
+			
+		Element rangeID = doc.createElement(variableName); 
+		Attr attrType3 = doc.createAttribute("Size");
+		attrType3.setValue( Integer.toString(variableRange));
+		rangeID.setAttributeNode(attrType3);
+		cobolname.appendChild(rangeID);
+
+			
+		Element lineID = doc.createElement(variableName); 
+		Attr attrType2 = doc.createAttribute("Line_Number" ); 
+		attrType2.setValue( Integer.toString(lineNumber) ); 
+		lineID.setAttributeNode(attrType2); 
+		cobolname.appendChild(lineID);
+		rootElement.appendChild(cobolname);
+	}
 	
+	void addNumVarRangeElement(String variableName, int variableType, int variableRange, int lineNumber) {
+		Element cobolname = doc.createElement("Variable");
+		Element varID = doc.createElement("Variable");
+		Attr attrType = doc.createAttribute("Name");
+		attrType.setValue(variableName);
+		varID.setAttributeNode(attrType);
+		cobolname.appendChild(varID);
+//		rootElement.appendChild(cobolname);
+		
+		Element typeID = doc.createElement(variableName); 
+		Attr attrType1 = doc.createAttribute("Type");
+		attrType1.setValue( Integer.toString(variableType));
+		typeID.setAttributeNode(attrType1);
+		cobolname.appendChild(typeID);
+		
+		Element rangeID = doc.createElement(variableName); 
+		Attr attrType3 = doc.createAttribute("Size");
+		attrType3.setValue( Integer.toString(variableRange));
+		rangeID.setAttributeNode(attrType3);
+		cobolname.appendChild(rangeID);
+
+		
+		Element lineID = doc.createElement(variableName); 
+		Attr attrType2 = doc.createAttribute("Line_Number" ); 
+		attrType2.setValue( Integer.toString(lineNumber) ); 
+		lineID.setAttributeNode(attrType2); 
+		cobolname.appendChild(lineID);
+		rootElement.appendChild(cobolname);
+	}
+	
+	void addNumVarElement(String variableName, int variableType, int lineNumber) {
+		Element cobolname = doc.createElement("Variable");
+		Element varID = doc.createElement("Variable");
+		Attr attrType = doc.createAttribute("Name");
+		attrType.setValue(variableName);
+		varID.setAttributeNode(attrType);
+		cobolname.appendChild(varID);
+		rootElement.appendChild(cobolname);
+		
+		Element typeID = doc.createElement(variableName); 
+		Attr attrType1 = doc.createAttribute("Type");
+		attrType1.setValue( Integer.toString(variableType));
+		typeID.setAttributeNode(attrType1);
+		cobolname.appendChild(typeID);
+
+		
+		Element lineID = doc.createElement(variableName); 
+		Attr attrType2 = doc.createAttribute("Line_Number" ); 
+		attrType2.setValue( Integer.toString(lineNumber) ); 
+		lineID.setAttributeNode(attrType2); 
+		cobolname.appendChild(lineID);
+		rootElement.appendChild(cobolname);
+	}
+	
+	void addHexDataElement(String variableName, String variableType, int variableRange, int lineNumber) {
+		if (variableName != null ) {
+			Element cobolname = doc.createElement("Variable");
+			Element varID = doc.createElement("Variable");
+			Attr attrType = doc.createAttribute("Name");
+			attrType.setValue(variableName);
+			varID.setAttributeNode(attrType);
+			cobolname.appendChild(varID);
+			rootElement.appendChild(cobolname);
+			
+			Element typeID = doc.createElement(variableName); 
+			Attr attrType1 = doc.createAttribute("Type");
+			attrType1.setValue(variableType);
+			typeID.setAttributeNode(attrType1);
+			cobolname.appendChild(typeID);
+			
+			Element rangeID = doc.createElement(variableName); 
+			Attr attrType3 = doc.createAttribute("Size");
+			attrType3.setValue( Integer.toString(variableRange));
+			rangeID.setAttributeNode(attrType3);
+			cobolname.appendChild(rangeID);
+
+			
+			Element lineID = doc.createElement(variableName); 
+			Attr attrType2 = doc.createAttribute("Line_Number" ); 
+			attrType2.setValue( Integer.toString(lineNumber) ); 
+			lineID.setAttributeNode(attrType2); 
+			cobolname.appendChild(lineID);
+			rootElement.appendChild(cobolname);
+		}
+	}
+	
+	void addBaseToDecimalElement(String stringElement) {
+		if (stringElement != null ) {
+			Element cobolname = doc.createElement("base-to-decimal");
+			cobolname.appendChild(doc.createTextNode(stringElement));
+			rootElement.appendChild(cobolname);
+		}
+	}
+
 	
 
  	void addProgram_IDElement(String stringElement) {

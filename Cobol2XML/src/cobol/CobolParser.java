@@ -30,6 +30,7 @@ import parse.Sequence;
 import parse.tokens.CaselessLiteral;
 import parse.tokens.Literal;
 import parse.tokens.Num;
+import parse.tokens.QuotedString;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
 import parse.tokens.Word;
@@ -47,31 +48,170 @@ public class CobolParser {
 	 */
 	public Parser cobol() {
 		Alternation a = new Alternation();
-		 a.add( constantValue() );
 		 a.add( commentLine() );
 		
 	
 		Symbol fullstop = new Symbol('.');
 		fullstop.discard();
+		Symbol quotation = new Symbol('"');
+		quotation.discard();
+		Symbol oBracket = new Symbol('(');
+		oBracket.discard();
+		Symbol cBracket = new Symbol(')');
+		cBracket.discard();
+		
 		a.add( ProgramID() );
 		a.add( DivisionName() );
-		a.add(  MainLogicSection());
 	    a.add(Remarks());
+	    
+		a.add(  MainLogicSection());
 	    a.add(StatementSection());
 	    a.add(StatementSection2());
 	    a.add(StatementSection3());
 		a.add( SectionName() );
 	    a.add( DateWritten() );
+	    
 	    a.add(DecimalToBase());
 	    a.add( DecimalToBaseSearch());
 	    a.add(DecimalToBasePerform());
 	    a.add(DecimalToBaseDivide());
 	    a.add(DecimalToBaseSubtract());
 	    a.add(DecimalToBaseIfStatement() );
+	    a.add(BaseToDecimal() );
+	    
+	    //Working Storage
+	    a.add(HexDataValue() );
+	    a.add(NumVarSize());
+	    a.add(compVar());
+	    a.add(NumVar());
+	    a.add( constantValue() );
+	    a.add(RedefineVar());
+	    a.add(HexDecTable());
+	    
 		a.add(new Empty());
 		return a;
 	}
 	
+	/*
+	 * Working Storage Parsers
+	 */
+	// Returns a parser that recognises a var of type comp-x
+	protected Parser compVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+		s.add(new CaselessLiteral("comp-x"));
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new CompVarAssembler());
+		return s;
+	}
+	
+	// Returns a parser that recognises a num var and size
+	protected Parser NumVarSize() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+		s.setAssembler(new NumVarSizeAssembler());
+		return s;
+	}
+	
+	// Returns a parser that recognises a num var
+	protected Parser NumVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new CaselessLiteral("rest_divide"));
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num());
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new NumVarAssembler());
+		return s;
+	}
+	
+	protected Parser RedefineVar() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("redefines"));
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word());
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new RedefineVarAssembler());
+		return s;
+	}
+	
+	// Returns a parser that recognises the hex data var
+	protected Parser HexDataValue() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word() );
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+		s.add(new CaselessLiteral("value"));
+		s.setAssembler(new HexDataValueAssembler());
+		return s;
+	}
+	
+	protected Parser HexDecTable() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		s.add(new Word());
+		s.add(new CaselessLiteral("hex_decimal_table"));
+		s.add(new CaselessLiteral("redefines"));
+		s.add(new Word() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexDecTableAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("occurs"));
+//		s.add(new Num());
+//		s.add(new Word() );
+//		s.add(new CaselessLiteral("accending"));
+//		s.add(new Word() );
+//		s.add(new Symbol(',').discard());
+//		s.add(new Word() );
+//		s.add(new CaselessLiteral("indexed"));
+//		s.add(new Word() );
+//		s.add(new Word() );
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexTableAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Word() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new HexValueAssembler());
+		s.add(new Num());
+		s.add(new Word() );
+		s.add(new CaselessLiteral("pic"));
+		s.add(new Num() );
+		s.add(new Symbol('.').discard());
+		s.setAssembler(new DecValueAssembler());
+		return s;
+	}
+	
+	
+	protected Parser BaseToDecimal() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("base-to-decimal"));
+		s.add(new Symbol('.').discard());
+//		s.add(new Word() );
+		s.setAssembler(new BaseToDecimalAssembler());
+		return s;
+	}
 	/*              
 	 * Return a parser that will recognize the grammar:
 	 * 
