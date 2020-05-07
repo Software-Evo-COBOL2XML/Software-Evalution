@@ -461,13 +461,6 @@ void addProgramLogicSection2(String string) {
  	
  	
  	
-
-
- 	
- 	
- 	
- 	
- 	
 	void addCommentLineElement(String stringElement) {
 		//  Comment Line element
 		
