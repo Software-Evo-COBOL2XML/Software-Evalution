@@ -9,7 +9,7 @@ public class HexDecTableAssembler extends Assembler {
 	@Override
 	public void workOn(Assembly a) {
 		Cobol c = new Cobol();
-		Token t = (Token) a.pop(); // hopefully the token following the comment
+		Token t = (Token) a.pop(); 
 		if(t.sval() != null) {
 			c.setIfStatement(t.sval().trim()+ defaultDelimiter() + a.remainder(defaultDelimiter()));
 //			t = (Token) a.pop();
