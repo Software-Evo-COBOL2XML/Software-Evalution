@@ -20,7 +20,7 @@ import parse.tokens.Token;
 			Token t = (Token) a.pop();
 			//c.setMainLogic(t.sval().trim()+ defaultDelimiter() + a.remainder(defaultDelimiter() ));
 		   
-		    System.out.println(t);
+//		    System.out.println(t);
 			
 		    c.setStatement(t.sval().trim()+ defaultDelimiter() + a.remainder(defaultDelimiter() )); //System.out.println("Token string[4]: " +
 		    c.getStatement() ;
