@@ -1,9 +1,8 @@
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 
 import java.util.Stack;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import XMLWriter.XMLPayload;
 import cobol.Cobol;
@@ -13,7 +12,6 @@ import parse.Parser;
 import parse.tokens.Token;
 import parse.tokens.TokenAssembly;
 import parse.tokens.Tokenizer;
-import parse.Assembly;
 
 public class test {
 
@@ -89,6 +87,7 @@ public void testYearWritten() {
 	assertEquals(c.getYearDateWritten(), 1995);
 
 }
+
 @Test
 public void testCommentLine() {
 	Tokenizer t = CobolParser.tokenizer();
@@ -136,6 +135,8 @@ public void testXMLPayload() {
 	m.addElements(c);
 	assertEquals(c.getCommentLine(), "bbbb");
 }
+
+
 
 
 }

@@ -15,10 +15,11 @@ public class MainLogicAssembler extends Assembler {
 		Cobol c = new Cobol();
 		Token t = (Token) a.pop();
 		
-		
+
+//	    System.out.println(t);
 
 	    c.setMainLogic(t.sval().trim()+ defaultDelimiter() + a.remainder(defaultDelimiter() )); //System.out.println("Token string[4]: " +
-	    c.getMainLogic() ;
+
 		
 			
 			

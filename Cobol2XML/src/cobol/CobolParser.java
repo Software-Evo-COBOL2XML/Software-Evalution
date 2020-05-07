@@ -134,6 +134,7 @@ public class CobolParser {
 		return s;
 	}
 	
+	// Returns a parser that recognises a a variable that redefines another
 	protected Parser RedefineVar() {
 		Sequence s = new Sequence();
 		s.add(new Num());
@@ -199,7 +200,7 @@ public class CobolParser {
 		s.add(new CaselessLiteral("pic"));
 		s.add(new Num() );
 		s.add(new Symbol('.').discard());
-		s.setAssembler(new DecValueAssembler());
+		s.setAssembler(new HexDecTableAssembler());
 		return s;
 	}
 	

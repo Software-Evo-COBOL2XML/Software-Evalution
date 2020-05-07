@@ -128,7 +128,7 @@ public class Cobol2XML {
 			      line1 =r.readLine(); //first line is space
 			      line2 += line1;
 			      s=s+line2;
-			      System.out.println(s);
+//			      System.out.println(s);
 			}
 					
 
